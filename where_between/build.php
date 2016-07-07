@@ -1,15 +1,14 @@
 <?php
 
-$redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
-$redis->delete('stress_redis::zset');
+$redis = include_once(dirname(__FILE__).'/../redis.inc.php');
+// $redis->delete('stress_redis::where_between');
 
 $start = microtime(true);
 
 $totalData = 100000;
 $time = 1436323400+rand(100, 1000);
 for ($i=1; $i <= $totalData; $i++) { 
-    $redis->zAdd('stress_redis::zset', $time+rand(10, 30), 'ID:'.$i);
+    $redis->zAdd('stress_redis::where_between', $time+rand(10, 30), 'ID:'.$i);
     $time += 30;
 }
 

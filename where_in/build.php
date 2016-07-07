@@ -1,14 +1,13 @@
 <?php
 
-$redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
+$redis = include_once(dirname(__FILE__).'/../redis.inc.php');
 
 $start = microtime(true);
 
 $totalData = 100000;
 $time = 1436323400;
 for ($i=1; $i <= $totalData; $i++) { 
-    $redis->set('stress_redis::set::'.$i, json_encode(['id' => $i, 'time' => $time]));
+    $redis->set('stress_redis::where_in::'.$i, json_encode(['id' => $i, 'time' => $time]));
     $time += 30;
 }
 

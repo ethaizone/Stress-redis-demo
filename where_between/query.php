@@ -1,13 +1,12 @@
 <?php
 
-$redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
+$redis = include_once(dirname(__FILE__).'/../redis.inc.php');
 
 $start = microtime(true);
 
 $time = 1436323400+rand(500, 2000);
 $timeEnd = $time+50000;
-$result = $redis->zRangeByScore('stress_redis::zset', $time, $timeEnd, array('withscores' => TRUE, 'limit' => array(0, 10000)));
+$result = $redis->zRangeByScore('stress_redis::where_between', $time, $timeEnd, array('withscores' => TRUE, 'limit' => array(0, 10000)));
 
 
 $end = microtime(true);
